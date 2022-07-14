@@ -34,36 +34,27 @@ class get_main_and_ban(discord.Client):
 
             
         # let's read the message
-        print(message.content)
-        print(self.dc_message_content)
         if message.content.startswith(self.dc_message_content) and message.channel.id in discord_channels:
             logger.info("It matched")
             dc_verify_message =  message.content.casefold()
-            # print("The original string : " + dc_verify_message)
         
             temp = re.findall(r'\d+', dc_verify_message)
             res = list(map(int, temp))
 
-            # print("The numbers list is : " + str(res))
 
             for i in range(0, len(res)):
             
                 if i == (len(res)-1):
                     continue
             res.reverse()
-
-            # print("The last element of list using reverse : "
-            #      + str(res[0]))
-
             
             await message.channel.send("Bye bye " + str(res[0]))
             userid_to_ban = int(res[0])
-            #print("The variable " + str(userid_to_ban))    
-                    
+            
             await message.guild.ban(discord.Object(id=userid_to_ban))
-            print(str(userid_to_ban) + " gone")
+            print(str(userid_to_ban) + " is gone")
         else:
-            logger.info("not an ALT account message")
+            logger.info("Not an ALT account message")
     
 # load discord intents
 intents = discord.Intents.default()
